@@ -1,0 +1,26 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#canvasContainer {
+	top: 0;
+	left: 0;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+}
+
+canvas {
+	position: relative;	
+	border: 2px dashed black;
+	background-image: url("http://i.imgur.com/GdGXArS.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	
+}
