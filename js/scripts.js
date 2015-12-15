@@ -4,7 +4,7 @@ var container = document.querySelector("#canvasContainer");
 var canvasWidth, canvasHeight;
 
 var xTiltSpeed = 0, yTiltSpeed = 0;
-
+var orientation = "";
 
 
 
@@ -12,20 +12,24 @@ var particles = [];
 
 
 var init = function() {
-	console.log("initialising");
+	ctx.clearRect(0,0,canvasWidth,canvasHeight);
+	particles = [];
 
-	resize();
+	if (orientation === "landscape") {
+		console.log("initialising");
 
-	window.addEventListener("resize", function() {
 		resize();
-	});
 
-	// # particles, maxX, maxY to start, radius, x speed, y speed
-	makeParticle(40, canvasWidth, canvasHeight, 10, 3, 2);
-         
-    render();  
-}
+		window.addEventListener("resize", function() {
+			resize();
+		});
 
+		// # particles, maxX, maxY to start, radius, x speed, y speed
+		makeParticle(40, canvasWidth, canvasHeight, 10, 3, 2);
+	         
+	    render();  
+	}
+};
 
 
 var resize = function() {
@@ -91,7 +95,7 @@ var makeParticle = function(n, maxX, minY, maxRadius, speedX, speedY) {
 		 	particle.x = Math.round(((maxX - (2*maxRadius) - 1) * Math.random())+1);
 	 		particle.y = Math.random() * (-1* minY);
 	 		particle.radius = Math.round(((maxRadius-1) * Math.random())+1);
-	 		particle.speed.x = Math.floor(Math.random()*speedX) - (speedX/2);
+	 		particle.speed.x = (Math.floor(Math.random()*speedX) - (speedX/2));
 	 		particle.speed.y = 1 + (speedY * Math.random());
 
 			particles.push(particle);
@@ -154,7 +158,7 @@ var render = function() {
 	for (var i = 0; i < particles.length; i++) {
 		var currentParticle = particles[i];
 
-		drawShape("circle", (currentParticle.x += xTiltSpeed), (currentParticle.y += currentParticle.speed.y), currentParticle.radius);
+		drawShape("circle", (currentParticle.x += (currentParticle.speed.x + xTiltSpeed)), (currentParticle.y += currentParticle.speed.y), currentParticle.radius);
 
 		// if(currentParticle.y - (2*currentParticle.radius) > 500) {
 		// 	currentParticle.y = (-2*currentParticle.radius);
@@ -184,5 +188,13 @@ var render = function() {
 	ctx.restore();
 	
 };
-init();
- 
+
+if (window.innerWidth > window.innerHeight) {
+	orientation = "landscape";
+		ctx.clearRect(0,0,canvasWidth,canvasHeight);
+	particles = [];
+	init();
+}
+
+
+
