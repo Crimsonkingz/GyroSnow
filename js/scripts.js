@@ -95,7 +95,7 @@ var makeParticle = function(n, maxX, minY, maxRadius, speedX, speedY) {
 		 	particle.x = Math.round(((maxX - (2*maxRadius) - 1) * Math.random())+1);
 	 		particle.y = Math.random() * (-1* minY);
 	 		particle.radius = Math.round(((maxRadius-1) * Math.random())+1);
-	 		particle.speed.x = (Math.floor(Math.random()*speedX) - (speedX/2));
+	 		particle.speed.x = (Math.floor(Math.random()*speedX) - (speedX/2)) * ((speedX/2) * maxRadius/particle.radius);
 	 		particle.speed.y = 1 + (speedY * Math.random());
 
 			particles.push(particle);
